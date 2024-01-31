@@ -9,7 +9,8 @@ class BasicCache(BaseCaching):
     """ BasicCache inherits from BaseCaching
     """
     def put(self, key, item):
-        """ Assign to the dictionary self.cache_data the item value for the key key
+        """ Assign to the dictionary self.cache_data
+        the item value for the key key
         """
         if key is not None and item is not None:
             self.cache_data[key] = item
