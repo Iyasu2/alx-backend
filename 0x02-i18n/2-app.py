@@ -9,6 +9,7 @@ from flask_babel import Babel, gettext
 app = Flask(__name__)
 babel = Babel(app)
 
+
 @babel.localeselector
 def get_locale():
     '''
