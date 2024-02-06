@@ -46,24 +46,31 @@ def before_request():
 
 @babel.localeselector
 def get_locale() -> str:
-    """Retrieves the locale for a web page.
-    """
-    queries = request.query_string.decode('utf-8').split('&')
-    query_table = dict(map(
-        lambda x: (x if '=' in x else '{}='.format(x)).split('='),
-        queries,
-    ))
-    if 'locale' in query_table:
-        if query_table['locale'] in app.config["LANGUAGES"]:
-            return query_table['locale']
+    '''
+    1. Locale from URL parameters
+    '''
+    if 'locale' in request.args:
+        locale = request.args.get('locale')
+        if locale in app.config["LANGUAGES"]:
+            return locale
+
+    # 2. Locale from user settings
+    if g.user is not None:
+        user_locale = g.user.get('locale')
+        if user_locale in app.config["LANGUAGES"]:
+            return user_locale
+
+    # 3. Locale from request header
     return request.accept_languages.best_match(app.config["LANGUAGES"])
+
+    # 4. Default locale is handled by Flask-Babel
 
 
 @app.route('/')
 def get_index() -> str:
     """The home/index page.
     """
-    return render_template('5-index.html')
+    return render_template('6-index.html')
 
 
 if __name__ == '__main__':
