@@ -3,6 +3,7 @@
 """
 from flask_babel import Babel
 from flask import Flask, render_template, request, g
+from typing import Dict, Union
 
 
 class Config:
