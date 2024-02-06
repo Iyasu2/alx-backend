@@ -5,16 +5,20 @@ this is a module
 from flask import Flask, render_template
 from flask_babel import Babel, gettext
 
-app = Flask(__name__)
-babel = Babel(app)
 
-class config:
-    '''this is a class'''
+class Config:
+    '''
+    a Flask Babel configuration.
+    '''
     LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
 
+
+app = Flask(__name__)
 app.config.from_object(Config)
-babel.localeselector(lambda: "en")
-babel.timezoneselector(lambda: "UTC")
+app.url_map.strict_slashes = False
+babel = Babel(app)
 
 
 @app.route("/")
@@ -22,9 +26,7 @@ def index():
     '''
     this is the index route
     '''
-    title = gettext("Welcome to Holberton")
-    header = gettext("Hello world")
-    return render_template("1-index.html", title=title, header=header)
+    return render_template("1-index.html")
 
 
 if __name__ == "__main__":
