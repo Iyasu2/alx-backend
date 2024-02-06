@@ -23,7 +23,7 @@ def index():
     '''
     this is the index route
     '''
-    return render_template("1-index.html")
+    return render_template("22index.html")
 
 
 if __name__ == "__main__":
